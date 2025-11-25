@@ -1,0 +1,73 @@
+# ============================================================================
+# Terraform Variables Values - Example Template
+# ============================================================================
+# This is a template file. Copy this to terraform.tfvars and fill in your values.
+# The terraform.tfvars file is ignored by git to protect sensitive information.
+# ============================================================================
+
+# Project Configuration
+project_name = "az-cdb-tf"
+environment  = "dev"
+
+# Azure Regions
+location_primary   = "eastus2"
+location_secondary = "westus2"
+
+# Network Configuration
+vnet_address_spaces = {
+  primary_aks        = "10.1.0.0/16"
+  primary_cosmosdb   = "10.2.0.0/16"
+  secondary_aks      = "10.11.0.0/16"
+  secondary_cosmosdb = "10.12.0.0/16"
+}
+
+subnet_address_prefixes = {
+  primary_aks_subnet        = "10.1.1.0/24"
+  primary_cosmosdb_subnet   = "10.2.1.0/24"
+  secondary_aks_subnet      = "10.11.1.0/24"
+  secondary_cosmosdb_subnet = "10.12.1.0/24"
+}
+
+aks_service_cidrs = {
+  primary   = "10.100.0.0/16"
+  secondary = "10.200.0.0/16"
+}
+
+aks_dns_service_ips = {
+  primary   = "10.100.0.10"
+  secondary = "10.200.0.10"
+}
+
+# Cosmos DB Configuration
+# IMPORTANT: Change this to a globally unique name
+cosmosdb_account_name            = "your-unique-cosmos-name"
+cosmosdb_database_name           = "demo-db"
+cosmosdb_container_name          = "threads"
+cosmosdb_partition_key           = "/user_id"
+cosmosdb_consistency_level       = "Eventual"
+cosmosdb_autoscale_max_throughput = 10000
+enable_zone_redundancy           = true
+enable_multi_region_writes       = true
+public_network_access_enabled    = false
+
+# AKS Configuration
+kubernetes_version      = "1.33"
+aks_node_count          = 2
+aks_node_vm_size        = "Standard_D2s_v3"
+aks_network_plugin      = "azure"
+aks_network_policy      = "azure"
+enable_workload_identity = true
+
+# Kubernetes Workload Configuration
+kubernetes_namespace        = "default"
+kubernetes_service_account  = "cosmosdb-workload-sa"
+
+# Tags
+tags = {
+  Project     = "az-cdb-tf"
+  Environment = "dev"
+  ManagedBy   = "Terraform"
+  Purpose     = "Multi-Region CosmosDB HA Demo"
+  CostCenter  = "Engineering"
+  Owner       = "Platform Team"
+}
