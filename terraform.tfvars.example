@@ -10,6 +10,8 @@ project_name = "az-cdb-tf"
 environment  = "dev"
 
 # Azure Regions
+# Choose any Azure regions that support availability zones
+# Examples: eastus2, westus2, centralus, northeurope, uksouth, etc.
 location_primary   = "eastus2"
 location_secondary = "westus2"
 

@@ -4,7 +4,7 @@ Terraform configuration for deploying a highly available, multi-region Azure Cos
 
 ## Features
 
-- **Multi-Region**: Active-active Cosmos DB across East US 2 and West US 2
+- **Multi-Region**: Active-active Cosmos DB across configurable Azure regions
 - **Zone Redundancy**: Zone-redundant deployment in both regions
 - **Private Networking**: Private endpoints, regional DNS zones, VNet peering
 - **Security**: Azure AD authentication only, workload identity, no public access
@@ -45,7 +45,7 @@ terraform apply
 - 2 Resource Groups (one per region)
 - 4 Virtual Networks (AKS and Cosmos DB VNets per region)
 - 4 VNet Peerings (regional only)
-- 1 Cosmos DB Account (multi-region, SQL API)
+- 1 Cosmos DB Account (multi-region writes, SQL API)
 - 2 Private Endpoints
 - 2 Private DNS Zones (regional)
 - 2 AKS Clusters (zone-redundant)
@@ -54,10 +54,11 @@ terraform apply
 ## Configuration
 
 All settings are configurable via `terraform.tfvars`:
-- Cosmos DB: autoscale throughput, consistency level, backup retention
-- AKS: node count, VM size, Kubernetes version
-- Networking: CIDR ranges, regions
-- Database: name, container, partition key
+- **Regions**: Primary and secondary Azure regions (default: eastus2, westus2)
+- **Cosmos DB**: Autoscale throughput, consistency level, backup retention
+- **AKS**: Node count, VM size, Kubernetes version
+- **Networking**: CIDR ranges
+- **Database**: Name, container, partition key
 
 See `terraform.tfvars.example` for available options.
 
