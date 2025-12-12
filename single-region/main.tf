@@ -105,10 +105,8 @@ resource "azurerm_cosmosdb_account" "main" {
   }
 
   backup {
-    type                = "Continuous"
-    tier                = "Continuous7Days"
-    interval_in_minutes = var.cosmosdb_backup_interval_minutes
-    retention_in_hours  = var.cosmosdb_backup_retention_hours
+    type = "Continuous"
+    tier = "Continuous7Days"
   }
 
   public_network_access_enabled     = false
@@ -243,16 +241,13 @@ resource "azurerm_kubernetes_cluster" "main" {
   role_based_access_control_enabled = true
 
   default_node_pool {
-    name                = "default"
-    node_count          = var.aks_enable_auto_scaling ? null : var.aks_node_count
-    vm_size             = var.aks_node_vm_size
-    vnet_subnet_id      = azurerm_subnet.aks.id
-    zones               = ["1", "2", "3"]
-    enable_auto_scaling = var.aks_enable_auto_scaling
-    min_count           = var.aks_enable_auto_scaling ? var.aks_min_count : null
-    max_count           = var.aks_enable_auto_scaling ? var.aks_max_count : null
-    os_disk_size_gb     = 128
-    os_disk_type        = "Managed"
+    name            = "default"
+    node_count      = var.aks_node_count
+    vm_size         = var.aks_node_vm_size
+    vnet_subnet_id  = azurerm_subnet.aks.id
+    zones           = ["1", "2", "3"]
+    os_disk_size_gb = 128
+    os_disk_type    = "Managed"
   }
 
   identity {
