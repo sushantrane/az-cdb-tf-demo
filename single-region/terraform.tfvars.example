@@ -1,0 +1,53 @@
+# ============================================================================
+# Terraform Variables Values - Example Template
+# ============================================================================
+# Copy this to terraform.tfvars and fill in your values.
+# ============================================================================
+
+# Azure subscription ID
+subscription_id = "your-subscription-id-here"
+
+# Project Configuration
+project_name = "az-cdb-poc"
+environment  = "dev"
+
+# Azure Region (choose any region that supports availability zones)
+location = "eastus2"
+
+# Network Configuration
+vnet_aks_address_space        = "10.1.0.0/16"
+vnet_cosmosdb_address_space   = "10.2.0.0/16"
+subnet_aks_address_prefix     = "10.1.1.0/24"
+subnet_cosmosdb_address_prefix = "10.2.1.0/24"
+aks_service_cidr              = "10.100.0.0/16"
+aks_dns_service_ip            = "10.100.0.10"
+
+# Cosmos DB Configuration
+# IMPORTANT: Change this to a globally unique name
+cosmosdb_account_name            = "your-unique-cosmos-name"
+cosmosdb_database_name           = "demo-db"
+cosmosdb_container_name          = "items"
+cosmosdb_partition_key           = "/id"
+cosmosdb_consistency_level       = "Session"
+cosmosdb_autoscale_max_throughput = 4000
+enable_zone_redundancy           = true
+
+# Backup Configuration
+cosmosdb_backup_interval_minutes = 240
+cosmosdb_backup_retention_hours  = 168
+
+# AKS Configuration
+aks_kubernetes_version  = "1.33"
+aks_node_count          = 2
+aks_node_vm_size        = "Standard_D2s_v3"
+aks_enable_auto_scaling = false
+aks_min_count           = 2
+aks_max_count           = 5
+
+# Tags
+tags = {
+  ManagedBy   = "Terraform"
+  Project     = "az-cdb-poc"
+  Environment = "dev"
+  Purpose     = "POC"
+}
