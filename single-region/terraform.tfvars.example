@@ -32,6 +32,11 @@ cosmosdb_consistency_level       = "Session"
 cosmosdb_autoscale_max_throughput = 4000
 enable_zone_redundancy           = true
 
+# Azure Container Registry
+# IMPORTANT: Change this to a globally unique name (alphanumeric only)
+acr_name = "youruniqueacrname"
+acr_sku  = "Basic"
+
 # Backup Configuration
 cosmosdb_backup_interval_minutes = 240
 cosmosdb_backup_retention_hours  = 168

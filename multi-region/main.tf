@@ -525,6 +525,36 @@ resource "azurerm_federated_identity_credential" "aks_secondary" {
 }
 
 # ----------------------------------------------------------------------------
+# Azure Container Registry
+# ----------------------------------------------------------------------------
+
+# ACR in primary region (both AKS clusters will use this)
+resource "azurerm_container_registry" "main" {
+  name                = var.acr_name
+  resource_group_name = azurerm_resource_group.primary.name
+  location            = azurerm_resource_group.primary.location
+  sku                 = var.acr_sku
+  admin_enabled       = false # Use managed identity for authentication
+  tags                = var.tags
+}
+
+# Grant AcrPull role to primary AKS kubelet identity
+resource "azurerm_role_assignment" "aks_primary_acr_pull" {
+  scope                            = azurerm_container_registry.main.id
+  role_definition_name             = "AcrPull"
+  principal_id                     = azurerm_kubernetes_cluster.primary.kubelet_identity[0].object_id
+  skip_service_principal_aad_check = true
+}
+
+# Grant AcrPull role to secondary AKS kubelet identity
+resource "azurerm_role_assignment" "aks_secondary_acr_pull" {
+  scope                            = azurerm_container_registry.main.id
+  role_definition_name             = "AcrPull"
+  principal_id                     = azurerm_kubernetes_cluster.secondary.kubelet_identity[0].object_id
+  skip_service_principal_aad_check = true
+}
+
+# ----------------------------------------------------------------------------
 # RBAC Assignments - Cosmos DB Built-in Data Contributor
 # ----------------------------------------------------------------------------
 

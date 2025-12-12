@@ -136,6 +136,35 @@ variable "cosmosdb_partition_key" {
   default     = "/user_id"
 }
 
+# ========================================
+# Container Registry Configuration
+# ========================================
+
+variable "acr_name" {
+  description = "Name of the Azure Container Registry (must be globally unique, alphanumeric only)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9]{5,50}$", var.acr_name))
+    error_message = "ACR name must be 5-50 characters, alphanumeric only (no hyphens or underscores)."
+  }
+}
+
+variable "acr_sku" {
+  description = "SKU tier for the Azure Container Registry"
+  type        = string
+  default     = "Basic"
+
+  validation {
+    condition     = contains(["Basic", "Standard", "Premium"], var.acr_sku)
+    error_message = "ACR SKU must be Basic, Standard, or Premium."
+  }
+}
+
+# ========================================
+# Cosmos DB Configuration
+# ========================================
+
 variable "cosmosdb_consistency_level" {
   description = "Cosmos DB consistency level"
   type        = string

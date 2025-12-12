@@ -123,6 +123,20 @@ output "aks_primary_managed_identity_id" {
 }
 
 # ----------------------------------------------------------------------------
+# ACR Outputs
+# ----------------------------------------------------------------------------
+
+output "acr_name" {
+  description = "Name of the Azure Container Registry"
+  value       = azurerm_container_registry.main.name
+}
+
+output "acr_login_server" {
+  description = "Login server URL for Azure Container Registry"
+  value       = azurerm_container_registry.main.login_server
+}
+
+# ----------------------------------------------------------------------------
 # AKS Cluster Outputs - Secondary Region
 # ----------------------------------------------------------------------------
 

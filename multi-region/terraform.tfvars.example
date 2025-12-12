@@ -42,12 +42,17 @@ aks_dns_service_ips = {
 
 # Cosmos DB Configuration
 # IMPORTANT: Change this to a globally unique name
-cosmosdb_account_name            = "your-unique-cosmos-name"
-cosmosdb_database_name           = "demo-db"
-cosmosdb_container_name          = "threads"
-cosmosdb_partition_key           = "/user_id"
-cosmosdb_consistency_level       = "Eventual"
+cosmosdb_account_name             = "your-unique-cosmos-name"
+cosmosdb_database_name            = "demo-db"
+cosmosdb_container_name           = "threads"
+cosmosdb_partition_key            = "/user_id"
+cosmosdb_consistency_level        = "Eventual"
 cosmosdb_autoscale_max_throughput = 10000
+
+# Container Registry Configuration
+# IMPORTANT: Change this to a globally unique name (alphanumeric only, no hyphens)
+acr_name = "youruniqueacrname"
+acr_sku  = "Basic"
 enable_zone_redundancy           = true
 enable_multi_region_writes       = true
 public_network_access_enabled    = false

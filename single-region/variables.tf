@@ -103,6 +103,35 @@ variable "cosmosdb_account_name" {
   }
 }
 
+# ----------------------------------------------------------------------------
+# Container Registry Configuration
+# ----------------------------------------------------------------------------
+
+variable "acr_name" {
+  description = "Azure Container Registry name (must be globally unique, 5-50 characters, alphanumeric only)"
+  type        = string
+
+  validation {
+    condition     = length(var.acr_name) >= 5 && length(var.acr_name) <= 50 && can(regex("^[a-zA-Z0-9]+$", var.acr_name))
+    error_message = "ACR name must be 5-50 characters, alphanumeric only."
+  }
+}
+
+variable "acr_sku" {
+  description = "ACR SKU (Basic, Standard, Premium)"
+  type        = string
+  default     = "Basic"
+
+  validation {
+    condition     = contains(["Basic", "Standard", "Premium"], var.acr_sku)
+    error_message = "ACR SKU must be one of: Basic, Standard, Premium."
+  }
+}
+
+# ----------------------------------------------------------------------------
+# Cosmos DB Configuration (continued)
+# ----------------------------------------------------------------------------
+
 variable "cosmosdb_database_name" {
   description = "Name of the Cosmos DB SQL database"
   type        = string
